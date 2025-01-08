@@ -188,10 +188,43 @@ export const getJokeById = async (req, res) => {
 
 //Funcion Para obtener la cantidad de chistes que hay en la base de datos por su categoría. Andrea Torres. Endpoint #6.
 export const getJokesByCategory = async (req, res) => {
+    const { category } = req.params; //Extrae la categoría desde los parámetros de la URL
 
+    try {
+        //Valida que la categoria sea una de las permitidas
+        const validCategories = ['Dad joke', 'Humor Negro', 'Chistoso', 'Malo'];
+        if (!validCategories.includes(category)) {
+            return res.status(400).json({ error: 'Categoría no válida. Las categorías permitidas son: Dad joke, Humor Negro, Chistoso o Malo.' });
+        }
+
+        //agarra todos los chistes de la categoría especificada
+        const jokes = await Joke.find({ category });
+
+        //muestra la cantidad de chistes encontrados
+        return res.status(200).json({ message: 'Cantidad de chistes encontrados', count: jokes.length });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Error al obtener la cantidad de chistes por categoría' });
+    }
 };  
 
 //Funcion para obtener todos los chistes que hay en la base de datos por puntaje de que tan bueno es, se tiene que pasar parámetro por URL. Andrea Torres. Endpoint #7.
 export const getJokesByRating = async (req, res) => {
+    const { rating } = req.params; //Extrae el parámetro de la URL
 
+    try {
+        //Valida que el parámetro sea un número entre 1 y 10
+        if (rating < 1 || rating > 10) {
+            return res.status(400).json({ error: 'El parámetro "rating" debe estar entre 1 y 10.' });
+        }
+
+        //agarra todos los chistes del rating especificado
+        const jokes = await Joke.find({ rating });
+
+        //muestra la cantidad de chistes encontrados
+        return res.status(200).json({ message: 'Cantidad de chistes encontrados', count: jokes.length });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Error al obtener la cantidad de chistes por categoría' });
+    }
 };  

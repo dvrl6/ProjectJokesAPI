@@ -132,7 +132,30 @@ export const updateJoke = async (req, res) => {
 
 //Funcion para borrar un chiste segun el ID dado. Abraham Carranza. Endpoint #4.
 export const deleteJokeById = async (req, res) => {
+    const { id } = req.params;
 
+    // Se verifica si el ID correspondiente es válido
+    if (!id ) {
+        return res.status(400).json({ error: 'Id no Válido' });
+    }
+
+    try {
+        // Se intenta eliminar el chiste por el ID proporcionado por el usuario
+        const deletedJoke = await Joke.findByIdAndDelete(id);
+
+        if (!deletedJoke) {
+            // Se envía el mensaje en caso de que el chiste no haya sido encontrado para ser eliminado
+            return res.status(404).json({ error: 'Chiste no encontrado' });
+        }
+
+        // Se muestra el mensaje en caso de que se haya podido eliminar el chiste
+        return res.status(200).json({ message: 'Chiste eliminado con éxito' });
+
+    } catch (error) {
+        // Fallo inesperado al no poder eliminar el chiste
+        console.error(error);
+        return res.status(500).json({ error: 'Error al eliminar el chiste' });
+    }
 };
 
 //Funcion para obtener un chiste segun el ID dado. Abraham Carranza. Endpoint #5.

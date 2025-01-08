@@ -19,6 +19,14 @@ npm install --save-dev cross-env
 npm install swagger-jsdoc swagger-ui-express
 )
 
+CREAR UN .ENV CON LAS CREDENCIALES DESEADAS, ES DECIR, CON LA QUE MANEJE SU BASE DE DATOS EN MONGO MIENTRAS SE TENGA LO SIGUIENTE:
+
+MONGO_USERNAME=?????
+MONGO_PASSWORD=????
+MONGO_PORT=????
+MONGO_DB=????
+MONGO_HOSTNAME=????
+
 
 
 PARA LA EJECUCION DEL SCRIPT / SERVIDOR USAR:
@@ -27,7 +35,7 @@ node src/index.js
 
 Desde la terminal con la direccion raiz del proyecto ProjectJokesAPI
 
-
+Cuando aparezca en consola "Servidor corriendo en http://localhost:3005/api" dele click al url dado para ser rederigido a la documentacion en swagger
 
 PARA PROBAR LOS ENDPOINTS: (probados desde Postman Desktop)
 

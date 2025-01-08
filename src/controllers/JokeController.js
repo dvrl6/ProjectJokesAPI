@@ -77,7 +77,57 @@ export const createJoke = async (req, res) => {
 
 //Funcion para actualizar un chiste. Diana Rodriguez. Endpoint #3.
 export const updateJoke = async (req, res) => {
+    const { id } = req.params; //Obtiene el ID del chiste desde los parámetros de la URL
+    const { text, author, rating, category } = req.body; //Obtiene los nuevos datos del cuerpo de la solicitud
 
+    try {
+        //Valida si el ID es un ObjectId válido
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ error: 'ID no válido' });
+        }
+        
+        //Valida que el chiste exista
+        const joke = await Joke.findById(id);
+        if (!joke) {
+            return res.status(404).json({ error: 'Chiste no encontrado por el ID dado.' });
+        }
+
+        if (req.body._id) {
+            return res.status(400).json({ error: 'No se puede modificar el campo "_id".' });
+        }
+
+        //Actualiza los campos solo si se proporcionan
+        if (text !== undefined) {
+            joke.text = text;
+        }
+        if (author !== undefined) {
+            joke.author = author;
+        }
+        if (rating !== undefined) {
+            if (rating < 1 || rating > 10) {
+                return res.status(400).json({ error: 'El campo "puntaje" debe estar entre 1 y 10.' });
+            }
+            joke.rating = rating;
+        }
+        if (category !== undefined) {
+            const validCategories = ['Dad joke', 'Humor Negro', 'Chistoso', 'Malo'];
+            if (!validCategories.includes(category)) {
+                return res.status(400).json({ error: 'Categoría no válida. Las categorías permitidas son: Dad joke, Humor Negro, Chistoso o Malo.' });
+            }
+            joke.category = category;
+        }
+
+        //Guarda los cambios en la base de datos
+        const updatedJoke = await joke.save();
+
+        return res.status(200).json({
+            message: 'Chiste actualizado exitosamente.',
+            updatedJoke 
+        });
+    } catch (error) {
+        console.error('Error al actualizar el chiste:', error);
+        return res.status(500).json({ message: 'Error al actualizar el chiste en la base de datos', error: error.message });
+    }
 };
 
 //Funcion para borrar un chiste segun el ID dado. Abraham Carranza. Endpoint #4.

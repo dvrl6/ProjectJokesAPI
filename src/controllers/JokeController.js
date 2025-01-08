@@ -38,7 +38,41 @@ export const getJoke = async (req, res) => {
 
  //Funcion para crear un nuevo chiste. Diana Rodriguez. Endpoint #2.
 export const createJoke = async (req, res) => {
+    const { text, author, rating, category } = req.body; //Extrae los datos del cuerpo de la solicitud
 
+    if (!text) {
+        return res.status(400).json({ error: 'El campo "texto" es requerido.' });
+    }
+    if (rating === undefined || rating < 1 || rating > 10) {
+        return res.status(400).json({ error: 'El campo "puntaje" es requerido y debe estar entre 1 y 10.' });
+    }
+    if (!category) {
+        return res.status(400).json({ error: 'El campo "categoría" es requerido.' });
+    }
+
+    const validCategories = ['Dad joke', 'Humor Negro', 'Chistoso', 'Malo'];
+    if (!validCategories.includes(category)) {
+        return res.status(400).json({ error: 'Categoría no válida. Las categorías permitidas son: Dad joke, Humor Negro, Chistoso o Malo.' });
+    }
+
+    try {
+        const newJoke = new Joke({
+            text,
+            author: author || "Se perdió en el Ávila como Led",  //Asigna un autor por defecto si no se proporciona uno
+            rating,
+            category,
+        });
+        //Guarda el chiste en la base de datos
+        const savedJoke = await newJoke.save();
+
+        //Retorna mensaje de exito con el chiste creado, incluyendo su id
+        return res.status(201).json({
+            message: 'Chiste creado exitosamente.',
+            savedJoke 
+        });
+    } catch (error) {
+        return res.status(500).json({ message: 'Error al guardar el chiste en la base de datos', error: error.message });
+    }
 };
 
 //Funcion para actualizar un chiste. Diana Rodriguez. Endpoint #3.

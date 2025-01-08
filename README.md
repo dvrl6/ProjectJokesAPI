@@ -1,5 +1,5 @@
 # ProjectJokesAPI
-Proyecto de Topicos Especiales de Programacion. Diana Rodriguez @dvrl6, Abraham Carranza @AJCDS2602 y Andrea Torres @Andytxxn. Seccion 16343
+Proyecto de Topicos Especiales de Programacion. Diana Rodriguez @dvrl6, Abraham Carranza @AJCDS2602 y Andrea Torres @Andytxxn. Seccion 16343. GRUPO 3.
 
 
 

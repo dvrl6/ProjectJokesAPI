@@ -98,9 +98,9 @@ CATEGORIAS ACEPTADAS : 'Dad joke', 'Humor Negro', 'Chistoso', 'Malo'
 
 7. GET. Obtener todos los chistes que hay por puntaje. Por Andrea Torres.
 
-GET http://localhost:3005/api/getJokesByRating
+GET http://localhost:3005/api/getJokesByRating:/rating
 
-
+RATING ACEPTADOS : del 1 al 10.
 
 PARA PROBAR LOS ENDPOINTS CON PRUEBAS UNITARIAS: (probados con framework JEST)
 

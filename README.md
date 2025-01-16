@@ -3,6 +3,10 @@ Proyecto de Topicos Especiales de Programacion. Diana Rodriguez @dvrl6, Abraham 
 
 
 
+
+
+
+
 PARA LOGRAR CORRER EL PROYECTO:
 
 npm install
@@ -29,13 +33,35 @@ MONGO_HOSTNAME=????
 
 CAMBIAR ???? POR LOS DATOS REALES
 
+
+
+
+
+
+
 PARA LA EJECUCION DEL SCRIPT / SERVIDOR USAR:
 
 node src/index.js 
 
-Desde la terminal con la direccion raiz del proyecto ProjectJokesAPI
+Desde la terminal con la direccion raiz del proyecto ProjectJokesAPI si trabaja con MONGO_HOSTNAME=localhost
+
+Si trabajara con MONGO_HOSTNAME=mongo ante los cambios realizados con el Dockerfile y docker-compose.yml entonces usar
+
+docker-compose up --build
+
+
+
+
+
+
+SWAGGER:
 
 Cuando aparezca en consola "Servidor corriendo en http://localhost:3005/api" dele click al url dado para ser rederigido a la documentacion en swagger
+
+
+
+
+
 
 PARA PROBAR LOS ENDPOINTS: (probados desde Postman Desktop)
 
@@ -102,6 +128,12 @@ GET http://localhost:3005/api/getJokesByRating:/rating
 
 RATING ACEPTADOS : del 1 al 10.
 
+
+
+
+
+
+
 PARA PROBAR LOS ENDPOINTS CON PRUEBAS UNITARIAS: (probados con framework JEST)
 
 Utilizar el comando:
@@ -109,6 +141,10 @@ Utilizar el comando:
 npm test
 
 Desde la terminal con la direccion raiz del proyecto ProjectJokesAPI
+
+
+
+
 
 
 

@@ -145,6 +145,16 @@ Desde la terminal con la direccion raiz del proyecto ProjectJokesAPI
 
 
 
+SI QUIERE VER LOS CAMBIOS REFLEJADOS EN EL CONTENEDOR DE LA BASE DE DATOS:
+
+docker exec -it mongo_audit mongosh -u $MONGO_USERNAME -p $MONGO_PASSWORD --authenticationDatabase admin
+show dbs
+use JokesDatabase // $MONGO_DATABASE
+show collections
+b.jokes.find().pretty() //cambie jokes por nombre de la coleccion en la que esta trabajando
+
+
+
 
 
 
